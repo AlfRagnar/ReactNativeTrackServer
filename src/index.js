@@ -1,6 +1,5 @@
-require("./models/Users");
+require("./models/User");
 require("./models/Track");
-
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
@@ -9,6 +8,7 @@ const trackRoutes = require("./routes/trackRoutes");
 const requireAuth = require("./middlewares/requireAuth");
 
 const app = express();
+
 app.use(bodyParser.json());
 app.use(authRoutes);
 app.use(trackRoutes);
@@ -17,6 +17,9 @@ app.use(trackRoutes);
 
 const mongoUri =
     "***REMOVED***";
+if (!mongoUri) {
+    throw new Error("You need to provide a valid MongoURI");
+}
 mongoose.connect(mongoUri, {
     useNewUrlParser: true,
     useCreateIndex: true,
