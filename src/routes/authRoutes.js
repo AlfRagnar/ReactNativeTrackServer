@@ -9,13 +9,21 @@ router.post("/signup", async (req, res) => {
     const { email, password } = req.body;
 
     try {
-        const user = new User({ email, password });
-        await user.save();
-
-        const token = jwt.sign({ userId: user._id }, "MY_SECRET_KEY");
-        res.send({ token });
+        const newUser = new User({ email, password });
+        console.log(newUser);
+        // Check if user already exists
+        const checkEmail = await User.findOne({ email });
+        console.log(checkEmail);
+        if (checkEmail === null) {
+            await newUser.save();
+            const token = jwt.sign({ userId: newUser._id }, "MY_SECRET_KEY");
+            res.send({ token });
+        } else {
+            return res.status(404).json({ message: "User already exists" });
+        }
     } catch (err) {
-        return res.status(422).send(err.message);
+        console.log(err);
+        return res.status(422).json({ message: "Error: " + err.message });
     }
 });
 
