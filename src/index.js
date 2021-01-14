@@ -13,7 +13,7 @@ app.use(bodyParser.json())
 app.use(authRoutes)
 app.use(trackRoutes)
 
-// ***REMOVED***
+
 
 const mongoUri = '' // YOUR LINK TO YOUR MONGODB, I USE MONGODB ON CLOUD
 if (!mongoUri) {
