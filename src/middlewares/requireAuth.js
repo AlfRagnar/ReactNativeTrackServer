@@ -4,7 +4,7 @@ const User = mongoose.model('User')
 
 module.exports = (req, res, next) => {
   const { authorization } = req.headers
-  // authorization === 'Bearer asdasdasjldjasdljasdjaskldj'
+  // authorization === 'Bearer RandomText'
   if (!authorization || !authorization.includes('Bearer')) {
     return res.status(401).send({ error: 'You must be logged in' })
   }
